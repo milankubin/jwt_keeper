@@ -130,7 +130,7 @@ module JWTKeeper
                  verify_aud: true,
                  verify_iat: true,
                  verify_sub: false,
-                 verify_jti: false,
+                 verify_jti: true,
                  leeway: 0,
                  iss: JWTKeeper.configuration.issuer,
                  aud: JWTKeeper.configuration.audience
