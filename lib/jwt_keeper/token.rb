@@ -131,7 +131,8 @@ module JWTKeeper
 
     # @!visibility private
     def self.decode(raw_token, cookie_secret)
-      JWT.decode(raw_token, JWTKeeper.configuration.secret.to_s + cookie_secret.to_s, true,
+      token_secret =  JWTKeeper.configuration.secret.to_s + (cookie_secret.present? ?cookie.secret.to_s : "")
+      JWT.decode(raw_token, token_secret, true,
                  algorithm: JWTKeeper.configuration.algorithm,
                  verify_iss: true,
                  verify_aud: true,
@@ -151,6 +152,7 @@ module JWTKeeper
 
     # @!visibility private
     def encode
+      token_secret =  JWTKeeper.configuration.secret.to_s + (cookie_secret.present? ?cookie.secret.to_s : "")
       JWT.encode(claims,
                  JWTKeeper.configuration.secret.to_s + cookie_secret.to_s,
                  JWTKeeper.configuration.algorithm
