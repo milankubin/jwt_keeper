@@ -146,7 +146,7 @@ module JWTKeeper
     def encode
       token_secret =  JWTKeeper.configuration.secret.to_s + (cookie_secret.present? ?cookie.secret.to_s : "")
       JWT.encode(claims,
-                 JWTKeeper.configuration.secret.to_s + cookie_secret.to_s,
+                 token_secret,
                  JWTKeeper.configuration.algorithm
                 )
     end
